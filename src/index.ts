@@ -1,11 +1,7 @@
 import {caesarShift} from './caesar-shift';
 import assert = require('assert');
 
-type Pair = [string, string];
-
-const DEFAULT_ENC_KEY = 5;
-
-export function encryptSentence(input = process.argv[2], encKey = DEFAULT_ENC_KEY): string {
+export function encryptSentence(input: string, encKey: number): string {
   console.log(`You entered: "${input}" with encryption key "${encKey}"`);
   assert(
     /^[a-zA-Z\s]+$/.test(input) && input.split(' ').length <= 7,
@@ -23,22 +19,21 @@ function _encryptSentence(input: string, encryptionKey: number) {
     const pair = popPair(encryptedQueue);
     encryptedQueue.push(encrypt(`${pair[0]}${pair[1]}`, encryptionKey));
   }
-  const finalToken = encrypt(
+  return encrypt(
     `${encryptedQueue.pop()}${encryptedQueue.pop()}`,
     encryptionKey
   );
-  console.debug(finalToken);
-  return finalToken;
-}
-
-function popPair(queue: string[]): Pair {
-  return [queue.pop()!, queue.pop()!];
 }
 
 export function encrypt(token: string, key: number): string {
+  // return strongEncryption(token, key);
   return caesarShift(token, key);
 }
 
 export function decrypt(token: string, key: number): string {
   return caesarShift(token, -key);
+}
+
+function popPair(queue: string[]): [string, string] {
+  return [queue.pop()!, queue.pop()!];
 }
