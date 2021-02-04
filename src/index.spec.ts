@@ -19,10 +19,11 @@ describe('Encryptor', () => {
     expect(encryptSentence(sentence5, 1)).toBeTruthy();
   });
 
-  it('should encrypt into 1 word', () => {
+  it('should encrypt into 1 same word', () => {
     const sentence = 'The dog jumped over the fence too';
     const encryptedToken = encryptSentence(sentence, 1);
     expect(encryptedToken.split(' ').length).toBe(1);
+    expect(encryptSentence(sentence, 1)).toBe(encryptedToken);
   });
 
   it('should be able to encrypt and decrypt the same token correctly', () => {
