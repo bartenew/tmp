@@ -8,7 +8,8 @@
     "lint": "gts lint",
     "compile": "tsc",
     "fix": "gts fix",
-    "encrypt": "ts-node src/cli.ts",
+    "encrypt": "node build/encrypt.cli.js",
+    "decrypt": "node build/decrypt.cli.js",
     "prepare": "npm run compile"
   },
   "author": "",
