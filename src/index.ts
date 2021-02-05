@@ -16,7 +16,7 @@ export function encryptSentence(input: string, encKey: string): string {
  * Decrypt nested encryption.
  * @see #encryptSentence
  */
-export function decryptSentence(input: string, encKey: string) {
+export function decryptSentence(input: string, encKey: string): string {
   return _decryptSentence(decrypt(input, encKey), encKey);
 }
 
@@ -31,6 +31,8 @@ function _decryptSentence(input: string, encKey: string): string {
 
 function _encryptSentence(input: string, encryptionKey: string) {
   const words = input.split(' ');
+  if (words.length === 1) return encrypt(input, encryptionKey);
+
   const encryptedQueue = words.map(word => encrypt(word, encryptionKey));
 
   // take and encrypt pairs from the queue until only 1 pair left

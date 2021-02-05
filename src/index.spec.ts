@@ -26,5 +26,9 @@ describe('Encryptor', () => {
     const sentence2 = 'The dog jumped over the fence too';
     const encryptedSentence2 = encryptSentence(sentence2, 'test');
     expect(decryptSentence(encryptedSentence2, 'test')).toBe(sentence2);
+
+    const sentence3 = 'The';
+    const encryptedSentence3 = encryptSentence(sentence3, 'test');
+    expect(decryptSentence(encryptedSentence3, 'test')).toBe(sentence3);
   });
 });
