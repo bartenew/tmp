@@ -8,14 +8,13 @@
 
 ## Usage
 
-`npm run encrypt "The dog jumped over the fence too" {encryptionKey}`
+`npm run encrypt "The dog jumped over the fence too" secret-key`
 
-`npm run decrypt  {numericEncryptionKey}`
+`npm run decrypt encrypted-string secret-key`
 
 ```
-npm run encrypt "My sentence" 7
-OUTPUT: You entered: "My sentence" with encryption key "7"
-        gsbhsbqsAm
+npm run encrypt "The dog" secret-key
+OUTPUT: U2FsdGVkX1+bbZNSyDkIFLpNnU.....
 ```
 
 ## Tests
