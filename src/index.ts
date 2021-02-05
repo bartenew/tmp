@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import {decrypt, encrypt} from "./aes-encrypt";
 import assert = require('assert');
 
 /**
@@ -11,6 +11,11 @@ export function encryptSentence(input: string, encKey: string): string {
   );
   return _encryptSentence(input, encKey);
 }
+
+/**
+ * Decrypt nested encryption.
+ * @see #encryptSentence
+ */
 export function decryptSentence(input: string, encKey: string) {
   return _decryptSentence(decrypt(input, encKey), encKey);
 }
@@ -30,32 +35,9 @@ function _encryptSentence(input: string, encryptionKey: string) {
 
   // take and encrypt pairs from the queue until only 1 pair left
   while (encryptedQueue.length > 2) {
-    const pair = popPair(encryptedQueue);
+    const pair = [encryptedQueue.pop(), encryptedQueue.pop()];
     encryptedQueue.push(encrypt(`${pair[0]} ${pair[1]}`, encryptionKey));
   }
   // encrypt last pair and return single resulting string
   return encrypt(`${encryptedQueue.pop()} ${encryptedQueue.pop()}`, encryptionKey);
-}
-
-/**
- * Encrypt text with a given key.
- */
-export function encrypt(str: string, key: string): string {
-  const cipher = crypto.createCipher('aes-256-cbc', key);
-  const crypted = cipher.update(str, 'utf8', 'hex');
-  return crypted + cipher.final('hex');
-}
-
-export function decrypt(str: string, key: string): string {
-  const decipher = crypto.createDecipher('aes-256-cbc', key);
-  try {
-    const dec = decipher.update(str, 'hex', 'utf8');
-    return dec + decipher.final('utf8');
-  } catch (e) {
-    return str;
-  }
-}
-
-function popPair(queue: string[]): [string, string] {
-  return [queue.pop()!, queue.pop()!];
 }

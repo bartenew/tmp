@@ -34,3 +34,10 @@ OUTPUT: You entered: "My sentence" with encryption key "7"
  - Take pairs off the queue, encrypt them and put the resulting singled work at the tail
  - Once only two words left on the queue, join them, encrypt and return the result.
 
+### Decrypt
+ - Decrypt first string
+ - Pass the result into helper function
+ - Return the result of the following recursion
+    - If one word is passed return decrypted version of it
+    - If two words are passed recurse on them and combine the results into a single string with a space in between.
+
